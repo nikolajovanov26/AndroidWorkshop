@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Android Workshop</string>
+    <string name="Title">Zivotot E Krug</string>
+    <string name="Subtitle_Login">Najavi se</string>
+    <string name="Login_Text">Najavi Se</string>
+    <string name="userTypesTitle">Tip Na Korisnik</string>
+    <string name="password">Lozinka</string>
+    <string name="registracija">Registracija</string>
+    <string name="ime">Ime</string>
+    <string name="e_mail_address">E-mail Address</string>
+    <string name="prezime">Prezime</string>
+    <string name="telefonski_broj">Telefonski Broj</string>
+    <string name="Register_Text">Registriraj Se</string>
+    <string name="najava">Najavi Se</string>
+    <string name="odjava">Odjava</string>
+    <string name="opis_na_aktivnost">Opis na Aktivnost</string>
+    <string name="povtorliva_aktivnost">Povtorliva Aktivnost</string>
+    <string name="itno">Itno</string>
+    <string name="dodadi_aktivnost">Dodadi Aktivnost</string>
+    <string name="test">Test</string>
+    <string-array name="aktivnosti">
+        <item>Odenje vo market</item>
+        <item>Odenje vo apteka</item>
+        <item>Gotvenje</item>
+        <item>Odrzuvanje na gradina</item>
+        <item>Pridruzba</item>
+    </string-array>
+
+</resources>

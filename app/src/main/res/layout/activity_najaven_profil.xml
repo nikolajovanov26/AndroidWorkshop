@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity=""
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="30dp"
+    tools:context=".NajavenProfil">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/ime_ph"
+                android:textStyle="bold"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:text="Ime: " />
+
+            <TextView
+                android:id="@+id/ime_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/prezime_ph"
+                android:textStyle="bold"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:text="Prezime: " />
+
+            <TextView
+                android:id="@+id/prezime_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/broj_ph"
+                android:textStyle="bold"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:text="Tel. broj: " />
+
+            <TextView
+                android:id="@+id/broj_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/aktivnost"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/dodadi_aktivnost"/>
+
+    <Button
+        android:id="@+id/VidiAktivnost"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Vidi Aktivnosti"/>
+
+    <Button
+        android:id="@+id/odjava"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/red"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/odjava"/>
+
+
+</LinearLayout>

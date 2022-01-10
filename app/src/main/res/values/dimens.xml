@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="Registration_TextSize">20sp</dimen>
+    <dimen name="marginLeftInfo">20dp</dimen>
+    <dimen name="MarginBottomInfo">5dp</dimen>
+</resources>

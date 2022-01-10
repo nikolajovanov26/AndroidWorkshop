@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".RegisterUser">
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registracija"
+        android:textSize="32sp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Name_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="@dimen/Registration_TextSize"
+        android:hint="@string/ime"
+        android:inputType="textEmailAddress"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/Prezime_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/prezime"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/Registration_TextSize"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/Broj_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/telefonski_broj"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:textSize="@dimen/Registration_TextSize"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/Email_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/e_mail_address"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/Registration_TextSize"
+        tools:ignore="TextContrastCheck"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/Password_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textSize="@dimen/Registration_TextSize"
+        tools:ignore="TextContrastCheck" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/povozrasno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:onClick="radioClick"
+            android:text="Povozrasno Lice" />
+
+        <RadioButton
+            android:id="@+id/volonter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="radioClick"
+            android:text="Volonter" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/Registracija"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Register_Text" />
+
+    <TextView
+        android:id="@+id/SwitchLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/najava"
+        android:layout_marginBottom="50dp"/>
+
+
+
+</LinearLayout>
