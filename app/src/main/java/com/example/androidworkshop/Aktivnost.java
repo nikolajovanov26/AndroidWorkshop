@@ -16,12 +16,30 @@ public class Aktivnost {
     public String rejting;
     public String izvestaj;
     public String kluc;
+    public Double lat;
+    public Double lon;
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
 
     public Aktivnost(){
 
     }
 
-    public Aktivnost(String vozrasnoliceID, String itnost, String lokacija, String datum, String povtorlivost, String ime,  String vreme, String kluc){
+    public Aktivnost(String vozrasnoliceID, String itnost, String lokacija, String datum, String povtorlivost, String ime,  String vreme, String kluc, Double lat, Double lon){
         this.vozrasnoliceID = vozrasnoliceID;
         this.volonterID = "0";
         this.itnost = itnost;
@@ -34,7 +52,10 @@ public class Aktivnost {
         this.ime = ime;
         this.povtorlivost = povtorlivost;
         this.izvestaj = " ";
+        this.lat = lat;
+        this.lon = lon;
     }
+
 
 
 
@@ -51,6 +72,8 @@ public class Aktivnost {
         this.ime = ime;
         this.vreme = vreme;
         this.izvestaj = izvestaj;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public String getVozrasnoliceID() {

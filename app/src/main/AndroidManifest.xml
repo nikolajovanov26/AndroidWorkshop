@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.androidworkshop">
 
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -36,6 +38,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAK5iHoHoBBAqmL6rOhXnziTOLwg6hYruE" />
 
+        <meta-data
+            android:name="com.google.android.gms.versions"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".DodadiAktivnost"
             android:exported="true" />
@@ -49,6 +55,7 @@
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

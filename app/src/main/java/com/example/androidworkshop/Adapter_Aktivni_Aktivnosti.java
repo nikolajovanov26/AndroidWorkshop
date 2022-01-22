@@ -1,7 +1,13 @@
 package com.example.androidworkshop;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,9 +38,17 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
     static Context context;
     User lice;
 
+    Integer odalecenost;
+    Double lat22,lon22;
+    String lat1,lon1;
+
+    LocationManager locationManager;
+
     DatabaseReference reference;
 
     ArrayList<Aktivnost> list;
+
+
 
 
 
@@ -47,6 +63,9 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.aktivnosti_volonter,parent,false);
+
+
+
         return new MyViewHolder(v);
     }
 
@@ -68,6 +87,42 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
         //holder.test.setText(aktivnost.getVozrasnoliceID());
         holder.liceId = aktivnost.getVozrasnoliceID();
 
+        lat22 = aktivnost.getLat();
+        lon22 = aktivnost.getLon();
+
+        //String lat2 = lat22.toString();
+        //String lon2 = lon22.toString();
+
+
+        //Double lt1 = Double.parseDouble(lat1);
+        //Double ln1 = Double.parseDouble(lon1);
+
+
+
+
+        if(lat22 != null){
+
+            Location startPoint=new Location("locationA");
+            startPoint.setLatitude(Double.parseDouble(lat1));
+            startPoint.setLongitude(Double.parseDouble(lon1));
+
+            Location endPoint=new Location("locationA");
+            endPoint.setLatitude(lat22);
+            endPoint.setLongitude(lon22);
+
+            double distance=startPoint.distanceTo(endPoint);
+            double distance2 = distance/1000.0;
+            int dis = (int) Math.round(distance2);
+
+            holder.odalecenost.setText(dis+" km");
+
+            Log.d("Dist: ", dis+"km");
+            //Log.d("Lon:", lon1 + " " + lon22);
+            //Log.d("Lat:", lat1 + " " + lat22);
+        }
+
+
+
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(aktivnost.getVozrasnoliceID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,6 +143,10 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
 
             }
         });
+
+
+
+
     }
 
     @Override
@@ -95,9 +154,9 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
         return list.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tip,datum,vreme,lokacija,itno,povtorlivo,rejting,test,imeprezime;
+        TextView tip,datum,vreme,lokacija,itno,povtorlivo,rejting,odalecenost,imeprezime;
         Button volonterCTA;
         Aktivnost aktivnost;
         String id, liceId;
@@ -105,9 +164,12 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
 
+
+
             //test = itemView.findViewById(R.id.ime);
             imeprezime = itemView.findViewById(R.id.ime);
             tip = itemView.findViewById(R.id.tip);
+            odalecenost = itemView.findViewById(R.id.odalecenost);
             rejting = itemView.findViewById(R.id.rejting);
             datum = itemView.findViewById(R.id.datum);
             vreme = itemView.findViewById(R.id.vreme);
@@ -119,6 +181,56 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
                 @Override
                 public void onClick(View view) {
                     prijaviAktivnost(id);
+                }
+            });
+
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+            if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED&&
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions((Activity) context, new String[]{
+                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
+                },1);
+            }
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    //Double lat22 = aktivnost.getLat();
+                    //Double lon22 = aktivnost.getLon();
+
+                    //String lat2 = lat22.toString();
+                    //String lon2 = lon22.toString();
+
+                    lat1 = String.valueOf(location.getLatitude());
+                    lon1 = String.valueOf(location.getLongitude());
+
+                    //Double lt1 = Double.parseDouble(lat1);
+                    //Double ln1 = Double.parseDouble(lon1);
+
+
+
+
+
+
+                    //Log.d("Lon:", lon1 + " " + lon22);
+                    //Log.d("Lat:", lat1 + " " + lat22);
+
+                    //Location startPoint=new Location("locationA");
+                    //startPoint.setLatitude(lat1);
+                    //startPoint.setLongitude(lon1);
+
+                    //Location endPoint=new Location("locationA");
+                    //endPoint.setLatitude(lat2);
+                    //endPoint.setLongitude(lon2);
+
+                    //double distance=startPoint.distanceTo(endPoint);
+                    //double distance2 = distance/1000.0;
+                    //int dis = (int) Math.round(distance2);
+
+
+
+                    //Toast.makeText(co, dis +" km", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -167,6 +279,8 @@ public class Adapter_Aktivni_Aktivnosti extends RecyclerView.Adapter<Adapter_Akt
 
             }
         });
+
+
 
 
         //Toast.makeText(context, "Zapisana aktivnost", Toast.LENGTH_SHORT).show();

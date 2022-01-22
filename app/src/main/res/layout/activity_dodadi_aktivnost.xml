@@ -113,6 +113,7 @@
         <EditText
             android:layout_width="200dp"
             android:layout_marginRight="20dp"
+            android:editable="false"
             android:layout_height="wrap_content"
             android:id="@+id/tLokacija" />
 

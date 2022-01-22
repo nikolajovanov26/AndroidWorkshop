@@ -1,38 +1,49 @@
 package com.example.androidworkshop;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.maps.android.SphericalUtil;
+
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 // import com.google.android.gms.location.places.Place;
 // import com.google.android.gms.location.places.ui.PlacePicker;
-
-import java.util.Calendar;
 
 public class DodadiAktivnost extends AppCompatActivity implements View.OnClickListener{
 
@@ -41,6 +52,9 @@ public class DodadiAktivnost extends AppCompatActivity implements View.OnClickLi
     CheckBox povt,itno;
     private int godina, mesec, den, saat, minuta;
     private int PLACE_PICKER_REQUEST = 1;
+    Double lat,lon;
+
+    String lokacija;
 
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -160,11 +174,10 @@ public class DodadiAktivnost extends AppCompatActivity implements View.OnClickLi
 
                                 vremeText.setText(hourOfDay + ":" + minute);
                             }
-                        }, saat, minuta, false);
+                        }, saat, minuta, true);
                 timePickerDialog2.show();
                 break;
             case R.id.lokacija:
-                /*
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
                     startActivityForResult(builder.build(DodadiAktivnost.this)
@@ -174,33 +187,54 @@ public class DodadiAktivnost extends AppCompatActivity implements View.OnClickLi
                 } catch (GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
-                */
+
                 break;
         }
 
     }
 
-    /*
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
+
                 StringBuilder stringBuilder = new StringBuilder();
-                String latitude = String.valueOf(place.getLatLng().latitude);
-                String longitude = String.valueOf(place.getLatLng().longitude);
-                stringBuilder.append("LATITUDE :");
-                stringBuilder.append(latitude);
-                stringBuilder.append("\n");
-                stringBuilder.append("LONGITUDE :");
-                stringBuilder.append(longitude);
-                lokacijaText.setText(stringBuilder.toString());
+                //String latitude = String.valueOf(place.getLatLng().latitude);
+                //String longitude = String.valueOf(place.getLatLng().longitude);
+
+                lat = Double.valueOf(place.getLatLng().latitude);
+                lon = Double.valueOf(place.getLatLng().longitude);
+
+                getAddress(lat, lon);
+
+                lokacijaText.setText(lokacija);
             }
 
         }
     }
-     */
+
+    public void getAddress(double lat, double lng) {
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            Address obj = addresses.get(0);
+            String add = obj.getAddressLine(0);
+
+            lokacija = add;
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     public void result(View view) {
         Spinner aktivnosti = (Spinner) findViewById(R.id.aktivnosti);
@@ -253,7 +287,7 @@ public class DodadiAktivnost extends AppCompatActivity implements View.OnClickLi
 
 
         String key = reference.push().getKey();
-        Aktivnost aktiv = new Aktivnost(id, itnost, lokacija, datum, povtorlivost, aktivnost, vreme, key);
+        Aktivnost aktiv = new Aktivnost(id, itnost, lokacija, datum, povtorlivost, aktivnost, vreme, key, lat, lon);
 
 
         FirebaseDatabase.getInstance().getReference("Aktivnosti")
@@ -273,4 +307,6 @@ public class DodadiAktivnost extends AppCompatActivity implements View.OnClickLi
 
 
             }
+
+
 }
